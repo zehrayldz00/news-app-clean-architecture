@@ -21,7 +21,7 @@ class ArticleRepositoryImpl implements ArticleRepository {
         category: categoryQuery,
       );
       if (httpResponse.response.statusCode == HttpStatus.ok) {
-        return DataSuccess(httpResponse.data);
+        return DataSuccess(httpResponse.data.articles);
       } else {
         return DataFailed(
             DioException(

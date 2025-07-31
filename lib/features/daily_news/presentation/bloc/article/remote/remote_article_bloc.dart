@@ -20,7 +20,9 @@ class RemoteArticlesBloc extends Bloc<RemoteArticlesEvent, RemoteArticlesState>{
         RemoteArticlesDone(dataState.data!)
       );
     }
-    if(dataState is DataFailed && dataState.data!.isNotEmpty){
+    if(dataState is DataFailed){
+      final errorMessage = dataState.error?.message ?? dataState.error.toString();
+      print("Hata: $errorMessage");
       emit(
         RemoteArticlesError(dataState.error!)
       );
