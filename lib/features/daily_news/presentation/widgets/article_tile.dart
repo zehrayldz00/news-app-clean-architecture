@@ -5,7 +5,17 @@ import 'package:news_app_clean_architecture/features/daily_news/domain/entities/
 
 class ArticleWidget extends StatelessWidget {
   final ArticleEntity? article;
-  const ArticleWidget({super.key, this.article});
+  final bool isRemovable;
+  final Function(ArticleEntity article)? onRemove;
+  final Function(ArticleEntity article)? onArticlePressed;
+
+  const ArticleWidget({
+    super.key,
+    this.article,
+    this.isRemovable = false,
+    this.onRemove,
+    this.onArticlePressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +27,20 @@ class ArticleWidget extends StatelessWidget {
         top: 14,
       ),
       height: MediaQuery.of(context).size.width / 2.2,
-      child: Row(children: [_buildImage(context), _buildTitleAndDescription()]),
+      child: Row(
+          children: [
+            _buildImage(context),
+            _buildTitleAndDescription(),
+            if (isRemovable)
+              IconButton(
+                icon: const Icon(Icons.close),
+                onPressed: () {
+                  if (onRemove != null && article != null) {
+                    onRemove!(article!);
+                  }
+                },
+              ),
+          ]),
     );
   }
 
