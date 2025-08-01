@@ -8,6 +8,7 @@ import 'package:news_app_clean_architecture/injection_container.dart';
 import 'config/theme/app_themes.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await initializeDependencies();
   runApp(const MyApp());
 }
